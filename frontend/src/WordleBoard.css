@@ -1,0 +1,36 @@
+#wordleBoard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.wordle-row {
+    display: flex;
+    gap: 5px;
+}
+
+.cell {
+    width: 50px;
+    height: 50px;
+    border: 1px solid #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    background-color: #fff;
+}
+
+/* .active-row .cell {
+    border: 2px solid #007bff;
+} */
+
+.active-cell {
+    border: 2px solid #ff5722;
+}
+
+.cell:focus {
+    outline: none;
+}
