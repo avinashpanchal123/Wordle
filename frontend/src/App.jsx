@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import './App.css';
-import WordleBoard from "./WordleBoard.jsx"
+import WordleGame from "./Wordle.jsx"
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <>
-       <WordleBoard/>
+       <WordleGame/>
     </>
   )
 }
