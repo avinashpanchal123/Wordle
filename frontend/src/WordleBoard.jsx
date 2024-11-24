@@ -8,11 +8,15 @@ const WordleBoard = () => {
     const [grid, setGrid] = useState(
         Array(rows).fill().map(() => Array(cols).fill(''))
     );
+
+    let todaysWord = "PRICE"
+
+    const [cellStyle, setCellStyle] = useState(Array(rows).fill().map(() => Array(cols).fill('')))
+
     const [activeRow, setActiveRow] = useState(0);
     const [activeCell, setActiveCell] = useState(0);
 
     useEffect(() => {
-        // Add keydown listener to the window
         const handleKeyDown = (event) => {
             const key = event.key.toUpperCase();
 
@@ -56,13 +60,46 @@ const WordleBoard = () => {
     };
 
     const handleEnter = () => {
-        if (activeCell === cols) {
-            setActiveRow((prev) => Math.min(prev + 1, rows));
-            setActiveCell(0);
-        } else {
-            alert('Please complete the row before pressing Enter!');
+    if (activeCell !== cols) {
+        alert("Please complete the word");
+        return;
+    }
+
+    if (activeRow < rows) {
+        let count = 0;
+        const updatedGrid = [...grid];
+        const updatedStyles = [...cellStyle];
+
+        for (let i = 0; i < cols; i++) {
+            const letter = grid[activeRow][i];
+
+            if (letter === todaysWord[i]) {
+                updatedStyles[activeRow][i] = "green"; 
+                count++;
+            } else if (todaysWord.includes(letter)) {
+                updatedStyles[activeRow][i] = "orange"; 
+            } else {
+                updatedStyles[activeRow][i] = "gray";
+            }
         }
-    };
+
+        
+        setCellStyle(updatedStyles);
+
+        if (count === cols) {
+            setTimeout(() => {
+                alert("Congratulations! You won today's game!");
+            }, 500);
+        } else {
+            setActiveRow((prev) => Math.min(prev + 1, rows - 1));
+            if(activeRow != rows-1)
+               setActiveCell(0);
+            else{
+                alert("Better luck Next Time")
+            }
+        }
+    }
+};
 
     return (
         <div id="wordleBoard">
@@ -81,6 +118,9 @@ const WordleBoard = () => {
                                     ? 'active-cell'
                                     : ''
                             }`}
+                            style={{
+                                backgroundColor: cellStyle[rowIndex][colIndex],
+                            }}
                         >
                             {cell}
                         </div>
@@ -92,3 +132,4 @@ const WordleBoard = () => {
 };
 
 export default WordleBoard;
+
