@@ -1,3 +1,5 @@
+
+
 #wordleBoard {
     display: flex;
     flex-direction: column;
@@ -8,6 +10,38 @@
 .wordle-row {
     display: flex;
     gap: 5px;
+}
+
+
+
+/* .active-row .cell {
+    border: 2px solid #007bff;
+} */
+
+.active-cell {
+    border: 2px solid #ff5722;
+}
+
+.cell:focus {
+    outline: none;
+}
+
+@keyframes rotateX {
+    0% {
+        transform: rotateX(0deg);
+    }
+    100% {
+        transform: rotateX(360deg);
+    }
+}
+
+@keyframes rotateXReverse {
+    0% {
+        transform: rotateY(0deg);
+    }
+    100% {
+        transform: rotateY(-360deg); /* Reverse direction */
+    }
 }
 
 .cell {
@@ -21,16 +55,17 @@
     font-weight: bold;
     text-transform: uppercase;
     background-color: #fff;
+    transition: background-color 0.3s ease;
+    perspective: 1000px; /* Enable 3D effect for child elements */
 }
 
-/* .active-row .cell {
-    border: 2px solid #007bff;
-} */
-
-.active-cell {
-    border: 2px solid #ff5722;
+.cell.rotate-animation {
+    animation: rotateX 0.5s linear forwards;
 }
 
-.cell:focus {
-    outline: none;
+.cell.rotate-animation-reverse {
+    animation: rotateXReverse 0.5s linear forwards;
 }
+
+
+
